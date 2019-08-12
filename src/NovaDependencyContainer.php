@@ -20,11 +20,6 @@ class NovaDependencyContainer extends Field
     public $showOnIndex = false;
 
     /**
-     * @var array
-     */
-    public $dependsOption = [];
-
-    /**
      * NovaDependencyContainer constructor.
      *
      * @param $fields
@@ -51,35 +46,6 @@ class NovaDependencyContainer extends Field
         return $this->withMeta([
             'dependencies' => array_merge($this->meta['dependencies'], [['field' => $field, 'value' => $value]])
         ]);
-    }
-
-    /**
-     * depends option return array
-     *
-     * @param $options
-     * @return $this
-     */
-    public function dependsOption($options)
-    {
-        $this->dependsOption = $options;
-
-        return $this;
-    }
-
-    /**
-     * update fields component
-     *
-     * @param $resource
-     * @param null $value
-     * @return array|mixed
-     */
-    public function dependsOnUpdate($resource, $value = null)
-    {
-        $options = $this->dependsOption instanceof \Closure
-            ? call_user_func($this->dependsOption, $value)
-            : $this->dependsOption;
-        return $this->meta['fields'] = $options;
-        // return $this->meta['fields'] = $options;
     }
 
     /**
