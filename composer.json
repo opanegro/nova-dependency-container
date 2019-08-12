@@ -1,5 +1,5 @@
 {
-    "name": "opanegro/nova-dependency-container",
+    "name": "epartment/nova-dependency-container",
     "description": "A Laravel Nova field container allowing to depend on other fields values",
     "keywords": [
         "laravel",
