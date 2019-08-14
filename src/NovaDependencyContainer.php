@@ -62,6 +62,20 @@ class NovaDependencyContainer extends Field
     }
 
     /**
+     * Adds a dependency for a field being NOT equal to a value
+     *
+     * @param $field
+     * @param $value
+     * @return $this
+     */
+    public function dependsOnFalse($field, $value)
+    {
+        return $this->withMeta([
+            'dependencies' => array_merge($this->meta['dependencies'], [['field' => $field, 'falseValue' => $value]])
+        ]);
+    }
+
+    /**
      * @param mixed $resource
      * @param null $attribute
      */
@@ -75,6 +89,10 @@ class NovaDependencyContainer extends Field
             }
 
             if(array_key_exists('value', $dependency) && $dependency['value'] == $resource->{$dependency['field']}) {
+                $this->meta['dependencies'][$index]['satisfied'] = true;
+            }
+
+            if(array_key_exists('falseValue', $dependency) && $dependency['falseValue'] !== $resource->{$dependency['field']}) {
                 $this->meta['dependencies'][$index]['satisfied'] = true;
             }
         }

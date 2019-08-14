@@ -81,6 +81,11 @@
 						this.dependenciesSatisfied = false;
 						return;
 					}
+
+                    if(dependency.hasOwnProperty('falseValue') && this.dependencyValues[dependency.field] == dependency.falseValue) {
+                        this.dependenciesSatisfied = false;
+                        return;
+                    }
 				}
 
 				this.dependenciesSatisfied = true;
