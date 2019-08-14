@@ -62,6 +62,19 @@ class NovaDependencyContainer extends Field
     }
 
     /**
+     *
+     *
+     * @param $field
+     * @return NovaDependencyContainer
+     */
+    public function dependsOnEmpty($field)
+    {
+        return $this->withMeta([
+            'dependencies' => array_merge($this->meta['dependencies'], [['field' => $field, 'empty' => true]])
+        ]);
+    }
+
+    /**
      * Adds a dependency for a field being NOT equal to a value
      *
      * @param $field
@@ -85,6 +98,10 @@ class NovaDependencyContainer extends Field
 
         foreach ($this->meta['dependencies'] as $index => $dependency) {
             if(array_key_exists('notEmpty', $dependency) && ! empty($resource->{$dependency['field']})) {
+                $this->meta['dependencies'][$index]['satisfied'] = true;
+            }
+
+            if(array_key_exists('empty', $dependency) && empty($resource->{$dependency['field']})) {
                 $this->meta['dependencies'][$index]['satisfied'] = true;
             }
 

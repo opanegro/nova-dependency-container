@@ -77,6 +77,11 @@
 						return;
 					}
 
+                    if(dependency.hasOwnProperty('empty') && this.dependencyValues[dependency.field]) {
+                        this.dependenciesSatisfied = false;
+                        return;
+                    }
+
 					if(dependency.hasOwnProperty('value') && this.dependencyValues[dependency.field] != dependency.value) {
 						this.dependenciesSatisfied = false;
 						return;
