@@ -44,8 +44,8 @@
 					if (this.componentIsDependency(component)) {
 
 						component.$watch('value', (value) => {
-                            this.dependencyValues[component.field.attribute] = (typeof value === 'object' ? value.value : value);
-							this.updateDependencyStatus()
+                            this.dependencyValues[component.field.attribute] = (typeof value === 'object' && value !== null ? value.value : value);
+                            this.updateDependencyStatus()
 						}, {immediate: true})
 
 						this.dependencyValues[component.field.attribute] = component.field.value;
