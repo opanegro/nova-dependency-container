@@ -1,5 +1,5 @@
 <template>
-	<div v-if="dependenciesSatisfied">
+	<div v-if="dependenciesSatisfied" class="w-1/2">
 		<div v-for="childField in field.fields">
 			<component
 				:is="'form-' + childField.component"
