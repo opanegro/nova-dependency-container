@@ -1,5 +1,5 @@
 <template>
-	<div v-if="dependenciesSatisfied" class="w-1/2">
+	<div v-if="dependenciesSatisfied" :class="hasSize === true ? 'w-1/2' : ''">
 		<div v-for="childField in field.fields">
 			<component
 				:is="'form-' + childField.component"
@@ -22,6 +22,7 @@
 		props: ['resourceName', 'resourceId', 'field'],
 
 		mounted() {
+            this.checkHasSize()
 			this.registerDependencyWatchers(this.$root)
 			this.updateDependencyStatus()
 		},
@@ -30,6 +31,7 @@
 			return {
 				dependencyValues: {},
 				dependenciesSatisfied: false,
+                hasSize: false,
 			}
 		},
 
@@ -104,7 +106,18 @@
 						}
 					})
 				}
-			}
+			},
+
+			checkHasSize() {
+                if (_.isArray(this.field.fields)) {
+                    let checkSize = this.field.fields.filter((data) => {
+                        return typeof data.size !== 'undefined'
+                    })
+                    if (checkSize.length > 0) {
+                        this.hasSize = true
+                    }
+                }
+            }
 
 		}
 	}
